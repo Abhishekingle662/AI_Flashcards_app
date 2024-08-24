@@ -1,7 +1,16 @@
 "use client";
 
-import { useState } from "react";
-import { Container, TextField, Button, Typography, Box } from "@mui/material";
+import { useEffect, useState } from "react";
+import {
+  Container,
+  TextField,
+  Button,
+  Typography,
+  Box,
+  Grid,
+  Card,
+  CardContent,
+} from "@mui/material";
 
 export default function Generate() {
   const [text, setText] = useState(""); // Recieves a string
@@ -59,6 +68,30 @@ export default function Generate() {
         >
           Generate flashCards
         </Button>
+        {/* if flashCards array has something render the code after && */}
+        {flashCards.length > 0 && (
+          <Box sx={{ mt: 4 }}>
+            <Typography variant="h5" component="h2" gutterBottom>
+              Generated Flashcards
+            </Typography>
+            <Grid container spacing={2}>
+              {flashCards.map((flashcard, index) => (
+                <Grid item xs={12} sm={6} md={4} key={index}>
+                  <Card>
+                    <CardContent>
+                      <Typography variant="h6">Front:</Typography>
+                      <Typography>{flashcard.front}</Typography>
+                      <Typography variant="h6" sx={{ mt: 2 }}>
+                        Back:
+                      </Typography>
+                      <Typography>{flashcard.back}</Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+        )}
       </Box>
     </Container>
   );
